@@ -46,6 +46,13 @@ Movie Explorer combines movie discovery with account-related functionality in a 
 - **Interactive Animations** — Motion effects and transitions.
 - **Data Visualization** — Chart components for relevant administrative information.
 
+### Support & Ticket System
+
+- **Ticket-Based Communication** — Users and administrators can communicate directly through a ticketing system.
+- **User Support Requests** — Users can create tickets to ask questions, report issues, or request assistance.
+- **Administrative Responses** — Administrators can review tickets and respond to users through the same system.
+- **Centralized Conversations** — Keep support discussions organized within individual tickets for easier tracking and follow-up.
+
 ## Tech Stack
 
 | Technology | Purpose |
