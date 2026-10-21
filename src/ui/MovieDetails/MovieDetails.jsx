@@ -191,201 +191,221 @@ function MovieDetails() {
     getData()
     getSimilar()
     getFavoriteStatus();
-  }, [Title, dispatch, imdbID, Actors,userId])
+  }, [Title, dispatch, imdbID, Actors, userId])
 
 
   return (
     <>
-      {isPageLoading ?
+      {isPageLoading ? (
         <MovieDetailsSkeleton />
-        :
-        <div className="min-h-screen bg-[#020b16] text-white">
-          <button onClick={() => navigate(-1)} className="w-20 flex h-9 mx-6 my-3 items-center justify-center gap-3 rounded-[8px] bg-linear-to-r from-[#8654ed] to-[#7951df] px-8 text-[13px] font-semibold text-white shadow-[0_8px_25px_rgba(124,76,231,0.18)] transition hover:brightness-110 cursor-pointer">
+      ) : (
+        <div className="min-h-screen bg-white text-slate-900 dark:bg-[#020b16] dark:text-white">
+          <button
+            onClick={() => navigate(-1)}
+            className="mx-6 my-3 flex h-9 w-20 cursor-pointer items-center justify-center gap-3 rounded-[8px] bg-gradient-to-r from-violet-600 to-violet-700 px-8 text-[13px] font-semibold text-white shadow-[0_8px_25px_rgba(124,76,231,0.18)] transition hover:brightness-110 dark:from-[#8654ed] dark:to-[#7951df]"
+          >
             Back
           </button>
+
           {/* ================= HERO ================= */}
-          <section className="border-b border-[#142a47]">
+          <section className="border-b border-slate-200 dark:border-[#142a47]">
             <div className="mx-auto grid max-w-300 grid-cols-1 gap-8 px-6 py-9 lg:grid-cols-[245px_1fr_275px]">
               {/* Poster */}
-              <div className="relative h-100 overflow-hidden rounded-[6px] border border-[#193858] bg-[#071728]">
-                <img
-                  src={Poster}
-                  alt="Inception"
-                  className="h-full w-full object-fill"
-                />
-
-                <span className="absolute bottom-3 left-3 rounded-[5px] bg-[#030b15]/90 px-2.5 py-1.5 text-[11px] font-bold">
+              <div className="relative h-100 overflow-hidden rounded-[6px] border border-slate-200 bg-slate-100 dark:border-[#193858] dark:bg-[#071728]">
+                <img src={Poster} alt={Title} className="h-full w-full object-fill" />
+                <span className="absolute bottom-3 left-3 rounded-[5px] bg-black/80 px-2.5 py-1.5 text-[11px] font-bold text-white">
                   HD
                 </span>
               </div>
 
               {/* Main movie information */}
               <div className="pt-1">
-                <h1 className="text-[30px] font-bold tracking-tight text-[#f2f3fa]">
+                <h1 className="text-[30px] font-bold tracking-tight text-slate-900 dark:text-[#f2f3fa]">
                   {Title}
                 </h1>
 
                 <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px]">
-                  {movieAndContentSettings.showmovierating && <div className="flex items-center gap-2">
-                    <Star size={17} fill="#fbbf24" className="text-[#fbbf24]" />
-                    <span className="font-semibold text-[#edf0f8]">{imdbRating}/10</span>
-                  </div>}
+                  {movieAndContentSettings.showmovierating && (
+                    <div className="flex items-center gap-2">
+                      <Star size={17} fill="#fbbf24" className="text-[#fbbf24]" />
+                      <span className="font-semibold text-slate-800 dark:text-[#edf0f8]">
+                        {imdbRating}/10
+                      </span>
+                    </div>
+                  )}
 
-                  <span className="text-[#65728a]">({formatNumber(Number(imdbVotes?.replace(/,/g, "")))} votes)</span>
-
-                  <span className="h-4 w-px bg-[#253652]" />
-
-                  <span className="text-[#aab3c5]">{Year}</span>
-
-                  <span className="h-4 w-px bg-[#253652]" />
-
-                  <span className="rounded bg-[#101d31] px-2 py-1 text-[#aab3c5]">
+                  <span className="text-slate-500 dark:text-[#65728a]">
+                    ({formatNumber(Number(imdbVotes?.replace(/,/g, "")))} votes)
+                  </span>
+                  <span className="h-4 w-px bg-slate-300 dark:bg-[#253652]" />
+                  <span className="text-slate-600 dark:text-[#aab3c5]">{Year}</span>
+                  <span className="h-4 w-px bg-slate-300 dark:bg-[#253652]" />
+                  <span className="rounded bg-slate-100 px-2 py-1 text-slate-600 dark:bg-[#101d31] dark:text-[#aab3c5]">
                     {Rated}
                   </span>
-
-                  <span className="h-4 w-px bg-[#253652]" />
-
-                  <span className="text-[#aab3c5]">{formatRuntime(Runtime)}</span>
-
-                  <span className="h-4 w-px bg-[#253652]" />
-
-                  <span className="text-[#aab3c5]">
+                  <span className="h-4 w-px bg-slate-300 dark:bg-[#253652]" />
+                  <span className="text-slate-600 dark:text-[#aab3c5]">
+                    {formatRuntime(Runtime)}
+                  </span>
+                  <span className="h-4 w-px bg-slate-300 dark:bg-[#253652]" />
+                  <span className="text-slate-600 dark:text-[#aab3c5]">
                     {Genre.replace(/,\s*/g, " · ")}
                   </span>
                 </div>
 
-                <p className="mt-5 max-w-162 text-[15px] leading-[1.7] text-[#d3d9e7]">{Plot}</p>
+                <p className="mt-5 max-w-162 text-[15px] leading-[1.7] text-slate-600 dark:text-[#d3d9e7]">
+                  {Plot}
+                </p>
 
                 {/* Buttons */}
                 <div className="mt-5 flex flex-col gap-3">
-                  <button className="flex w-50 h-11.75 items-center justify-center gap-3 rounded-[8px] bg-linear-to-r from-[#8654ed] to-[#7951df] px-8 text-[13px] font-semibold text-white shadow-[0_8px_25px_rgba(124,76,231,0.18)] transition hover:brightness-110 cursor-pointer">
+                  <button className="flex h-11.75 w-50 cursor-pointer items-center justify-center gap-3 rounded-[8px] bg-gradient-to-r from-violet-600 to-violet-700 px-8 text-[13px] font-semibold text-white shadow-[0_8px_25px_rgba(124,76,231,0.18)] transition hover:brightness-110 dark:from-[#8654ed] dark:to-[#7951df]">
                     <Play size={17} fill="white" />
                     Watch Trailer
                   </button>
 
-                  <div className="flex items-center gap-6">
-                    <button className="flex h-11.75 items-center gap-2 rounded-[8px] border border-[#3b4c80] bg-[#071426] px-3 text-[13px] text-[#dce1ed] transition hover:border-[#8063e8] cursor-pointer"
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 lg:gap-6">
+                    <button
+                      className="flex h-11.75 items-center gap-2 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-[13px] text-slate-700 transition hover:border-violet-400 dark:border-[#3b4c80] dark:bg-[#071426] dark:text-[#dce1ed] dark:hover:border-[#8063e8]"
                       onClick={handleIsInWatchlist}
                     >
-
-                      {isInWatchlist ?
+                      {isInWatchlist ? (
                         <>
-                          {watchlistIsLoading ? <Loader2 className="animate-spin" /> : <Bookmark size={18} fill="#a879ff" color="#a879ff" />}
+                          {watchlistIsLoading ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Bookmark size={18} fill="#a879ff" color="#a879ff" />
+                          )}
                           Remove from watchlist
                         </>
-                        :
+                      ) : (
                         <>
-                          {watchlistIsLoading ? <Loader2 className="animate-spin" /> : <Bookmark size={18} className="text-[#a879ff]" />}
+                          {watchlistIsLoading ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Bookmark size={18} className="text-violet-500 dark:text-[#a879ff]" />
+                          )}
                           Add to watchlist
-                        </>}
+                        </>
+                      )}
                     </button>
 
-                    <button className="flex h-11.75 items-center gap-2 rounded-[8px] border border-[#3b4c80] bg-[#071426] px-3 text-[13px] text-[#dce1ed] transition hover:border-[#8063e8] cursor-pointer"
+                    <button
+                      className="flex h-11.75 items-center gap-2 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-[13px] text-slate-700 transition hover:border-violet-400 dark:border-[#3b4c80] dark:bg-[#071426] dark:text-[#dce1ed] dark:hover:border-[#8063e8]"
                       onClick={handleIsFavorite}
                     >
-                      {isFavoriteStat ?
+                      {isFavoriteStat ? (
                         <>
-                          {favoriteIsLoading ? <Loader2 className="animate-spin" /> : <Heart size={18} fill="#a879ff" color="#a879ff" />}
+                          {favoriteIsLoading ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Heart size={18} fill="#a879ff" color="#a879ff" />
+                          )}
                           Remove from Favorites
                         </>
-                        :
+                      ) : (
                         <>
-                          {favoriteIsLoading ? <Loader2 className="animate-spin" /> : <Heart size={18} className="text-[#a879ff]" />}
+                          {favoriteIsLoading ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Heart size={18} className="text-violet-500 dark:text-[#a879ff]" />
+                          )}
                           Add to Favorites
-                        </>}
+                        </>
+                      )}
                     </button>
 
-                    <button className="flex h-11.75 items-center gap-2 rounded-[8px] border border-[#3b4c80] bg-[#071426] px-3 text-[13px] text-[#dce1ed] transition hover:border-[#8063e8] cursor-pointer"
+                    <button
+                      className="flex h-11.75 items-center gap-2 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-[13px] text-slate-700 transition hover:border-violet-400 dark:border-[#3b4c80] dark:bg-[#071426] dark:text-[#dce1ed] dark:hover:border-[#8063e8]"
                       onClick={handleWatched}
                     >
-                      {currentWatchedMovie ?
+                      {currentWatchedMovie ? (
                         <>
-                          <Eye size={18} className="text-[#a879ff]" />
+                          <Eye size={18} className="text-violet-500 dark:text-[#a879ff]" />
                           Watched already
-                        </> :
+                        </>
+                      ) : (
                         <>
-                          {watchedIsLoading ? <Loader2 className="animate-spin" /> : <Eye size={18} className="text-[#a879ff]" />}
+                          {watchedIsLoading ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Eye size={18} className="text-violet-500 dark:text-[#a879ff]" />
+                          )}
                           Mark as watched
                         </>
-                      }
+                      )}
                     </button>
                   </div>
 
-                  {isInWatchlist && !movieAndContentSettings.movierating  && <p className="flex items-center gap-1 text-[13px] mt-2 text-red-600">
-                    <AlertCircle size={16} />
-                    Rating movie turned off by admin!
-                  </p>}
-                  {isInWatchlist && movieAndContentSettings.movierating && <div className="">
-                    <Rating ratingNumber={ratingNumber} imdbID={imdbID} max={movieAndContentSettings.maxrating}/>
-                  </div>}
+                  {isInWatchlist && !movieAndContentSettings.movierating && (
+                    <p className="mt-2 flex items-center gap-1 text-[13px] text-red-600 dark:text-red-500">
+                      <AlertCircle size={16} />
+                      Rating movie turned off by admin!
+                    </p>
+                  )}
+
+                  {isInWatchlist && movieAndContentSettings.movierating && (
+                    <div>
+                      <Rating
+                        ratingNumber={ratingNumber}
+                        imdbID={imdbID}
+                        max={movieAndContentSettings.maxrating}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* Movie metadata */}
                 <div className="mt-9 grid grid-cols-2 gap-y-5 sm:grid-cols-4">
-                  <InfoItem
-                    icon={UserRound}
-                    label="Director"
-                    value={Director}
-                  />
-
-                  <InfoItem
-                    icon={UsersRound}
-                    label="Writer"
-                    value={Writer?.split(",")[0]}
-                  />
-
-                  <InfoItem
-                    icon={Clock3}
-                    label="Runtime"
-                    value={formatRuntime(Runtime)}
-                  />
-
-                  {movieAndContentSettings.showreleasedate && <InfoItem
-                    icon={CalendarDays}
-                    label="Release Date"
-                    value={Released}
-                  />}
+                  <InfoItem icon={UserRound} label="Director" value={Director} />
+                  <InfoItem icon={UsersRound} label="Writer" value={Writer?.split(",")[0]} />
+                  <InfoItem icon={Clock3} label="Runtime" value={formatRuntime(Runtime)} />
+                  {movieAndContentSettings.showreleasedate && (
+                    <InfoItem icon={CalendarDays} label="Release Date" value={Released} />
+                  )}
                 </div>
               </div>
 
               {/* Right stats card */}
-              <div className="rounded-[7px] border border-[#193454] bg-[#061425] p-5">
+              <div className="rounded-[7px] border border-slate-200 bg-slate-50 p-5 dark:border-[#193454] dark:bg-[#061425]">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-[#00a86b] bg-[#063e32] text-[18px] font-bold text-[#e4fff5]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-emerald-300 bg-emerald-50 text-[18px] font-bold text-emerald-700 dark:border-[#00a86b] dark:bg-[#063e32] dark:text-[#e4fff5]">
                     {imdbRating}
                   </div>
-
                   <div>
-                    <p className="text-[13px] font-medium text-[#dce1ec]">
+                    <p className="text-[13px] font-medium text-slate-800 dark:text-[#dce1ec]">
                       IMDb Rating
                     </p>
-                    <p className="mt-1 text-[12px] text-[#7d899e]">{formatNumber(Number(imdbVotes?.replace(/,/g, "")))} votes</p>
+                    <p className="mt-1 text-[12px] text-slate-500 dark:text-[#7d899e]">
+                      {formatNumber(Number(imdbVotes?.replace(/,/g, "")))} votes
+                    </p>
                   </div>
                 </div>
 
-                <div className="my-4 h-px bg-[#19314e]" />
+                <div className="my-4 h-px bg-slate-200 dark:bg-[#19314e]" />
 
                 <div className="flex items-center gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-[9px] border border-[#293d63] bg-[#101d35]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-[9px] border border-slate-200 bg-slate-100 dark:border-[#293d63] dark:bg-[#101d35]">
                     <Flame size={22} className="text-orange-500" />
                   </div>
-
                   <div>
-                    <p className="text-[13px] text-[#aab4c8]">Popularity</p>
+                    <p className="text-[13px] text-slate-600 dark:text-[#aab4c8]">
+                      Popularity
+                    </p>
                     <div className="mt-1 flex items-center gap-3">
-                      <span className="text-[14px] font-semibold text-white">
+                      <span className="text-[14px] font-semibold text-slate-900 dark:text-white">
                         #{Metascore}
                       </span>
-                      <span className="text-[12px] text-[#7c879c]">
+                      <span className="text-[12px] text-slate-500 dark:text-[#7c879c]">
                         in Top Rated Movies
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="my-4 h-px bg-[#19314e]" />
+                <div className="my-4 h-px bg-slate-200 dark:bg-[#19314e]" />
 
-                <h3 className="font-semibold text-[#edf0f8]">
+                <h3 className="font-semibold text-slate-800 dark:text-[#edf0f8]">
                   Where to watch
                 </h3>
 
@@ -393,39 +413,13 @@ function MovieDetails() {
                   <StreamingService label="Netflix">
                     <span className="text-xl text-[#e50914]">N</span>
                   </StreamingService>
-
                   <StreamingService label="Prime Video">
                     <span className="text-[10px]">prime</span>
                   </StreamingService>
-
-
                 </div>
               </div>
             </div>
           </section>
-
-          {/* ================= TABS ================= */}
-          <div className="border-b border-[#142a47]">
-            <div className="mx-auto flex max-w-300 gap-8 px-6">
-              {["Overview", "Cast & Crew", "Reviews", "Similar Movies"].map(
-                (tab, index) => (
-                  <button
-                    key={tab}
-                    className={`relative h-13.5 px-5 text-[13px] ${index === 0
-                      ? "font-semibold text-[#a477ff]"
-                      : "text-[#9ca7bb]"
-                      }`}
-                  >
-                    {tab}
-
-                    {index === 0 && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.75 bg-[#9b68ff]" />
-                    )}
-                  </button>
-                )
-              )}
-            </div>
-          </div>
 
           {/* ================= CONTENT ================= */}
           <main className="mx-auto max-w-300 px-6 py-7">
@@ -433,42 +427,48 @@ function MovieDetails() {
               {/* Left */}
               <div>
                 <section>
-                  <h2 className="text-[20px] font-bold text-[#edf0f8]">
+                  <h2 className="text-[20px] font-bold text-slate-900 dark:text-[#edf0f8]">
                     Overview
                   </h2>
-
-                  <p className="mt-4 max-w-175 text-[13px] leading-[1.8] text-[#c0c8d8]">
+                  <p className="mt-4 max-w-175 text-[13px] leading-[1.8] text-slate-600 dark:text-[#c0c8d8]">
                     {Plot}
                   </p>
-
                 </section>
 
-                <div className="my-7 h-px bg-[#162d4a]" />
+                <div className="my-7 h-px bg-slate-200 dark:bg-[#162d4a]" />
 
                 {/* Cast */}
                 <section>
                   <div className="flex items-center justify-between">
-                    <h2 className="text-[19px] font-bold text-[#edf0f8]">
+                    <h2 className="text-[19px] font-bold text-slate-900 dark:text-[#edf0f8]">
                       Main Cast
                     </h2>
-
-
                   </div>
 
-                  <div className="mt-5 flex items-center gap-4">
-                    {actors.map((member) => (
-                      <CastCard key={member.name} member={member} />
-                    ))}
-                  </div>
+                  {Array.isArray(actors) && actors.length > 0 ? (
+                    <div className="mt-5 flex items-center gap-4">
+                      {actors.map((member) => (
+                        <CastCard key={member.name} member={member} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-5 flex min-h-32 flex-col items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-5 py-7 text-center dark:border-[#1b2c43] dark:bg-[#0b1727]">
+                      <p className="text-sm font-medium text-slate-700 dark:text-[#c3ccda]">
+                        Cast information unavailable
+                      </p>
+                      <p className="mt-1 text-xs text-slate-500 dark:text-[#718096]">
+                        Actor details are currently unavailable for this movie.
+                      </p>
+                    </div>
+                  )}
                 </section>
-
               </div>
 
               {/* ================= RIGHT COLUMN ================= */}
               <aside>
                 {/* Key Facts */}
-                <div className="rounded-[7px] border border-[#193454] bg-[#061425] p-5">
-                  <h2 className="text-[17px] font-bold text-[#edf0f8]">
+                <div className="rounded-[7px] border border-slate-200 bg-slate-50 p-5 dark:border-[#193454] dark:bg-[#061425]">
+                  <h2 className="text-[17px] font-bold text-slate-900 dark:text-[#edf0f8]">
                     Key Facts
                   </h2>
 
@@ -482,13 +482,12 @@ function MovieDetails() {
                     ].map(([label, value]) => (
                       <div
                         key={label}
-                        className="grid grid-cols-[1fr_1.2fr] border-b border-[#152b47] py-3 last:border-0"
+                        className="grid grid-cols-[1fr_1.2fr] border-b border-slate-200 py-3 last:border-0 dark:border-[#152b47]"
                       >
-                        <span className="text-[11px] text-[#8994a9]">
+                        <span className="text-[11px] text-slate-500 dark:text-[#8994a9]">
                           {label}
                         </span>
-
-                        <span className="text-[11px] font-medium text-[#dfe3ed]">
+                        <span className="text-[11px] font-medium text-slate-800 dark:text-[#dfe3ed]">
                           {value}
                         </span>
                       </div>
@@ -499,7 +498,7 @@ function MovieDetails() {
                 {/* Similar movies */}
                 <section className="mt-7">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-[18px] font-bold text-[#edf0f8]">
+                    <h2 className="text-[18px] font-bold text-slate-900 dark:text-[#edf0f8]">
                       Similar Movies
                     </h2>
                   </div>
@@ -513,7 +512,8 @@ function MovieDetails() {
               </aside>
             </div>
           </main>
-        </div>}
+        </div>
+      )}
     </>
   )
 

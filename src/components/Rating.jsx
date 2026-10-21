@@ -34,23 +34,23 @@ function Rating({
 
   const stars = (displayedRating / max) * 5;
 
-  function handleMouseMove(e, index) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
+function handleMouseMove(e, index) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
 
-    const half = mouseX < rect.width / 2 ? 0.5 : 1;
+  const isLeftHalf = mouseX < rect.width / 2;
 
-    const value = (index + half) * 2;
+  const value = index + (isLeftHalf ? 0.5 : 1);
 
-    setHoverRating(value);
+  setHoverRating(value * (max / 5));
+}
+
+function handleClick() {
+  if (hoverRating !== null) {
+    setSelectedRating(hoverRating);
+    onChange?.(hoverRating);
   }
-
-  function handleClick() {
-    if (hoverRating !== null) {
-      setSelectedRating(hoverRating);
-      onChange?.(hoverRating);
-    }
-  }
+}
 
   async function handleRatingSubmit() {
     if (!currentUser?.userId) {
