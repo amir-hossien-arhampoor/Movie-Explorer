@@ -1,0 +1,99 @@
+.popular-slider {
+  width: 100%;
+}
+
+.popular-slider .container {
+  width: 100%;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.popular-slider .swiper {
+  height: auto !important;
+}
+
+.popular-slider .swiper-wrapper {
+  height: auto !important;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.popular-slider .swiper-slide {
+  width: 150px !important;
+  height: auto !important;
+}
+
+.popular-slider .popular-card {
+  display: block;
+  width: 150px;
+  height: auto;
+  background-color: #ffffff;
+  border: 1px solid #b5b6b8;
+  border-radius: 9px;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.popular-slider .popular-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
+}
+
+.popular-slider .popular-card img {
+  display: block;
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.popular-slider .popular-info {
+  padding: 6px;
+  width: 120px;
+  margin-top: 8px;
+}
+
+.popular-slider .popular-info p {
+  margin: 0;
+  font-size: 10px;
+  line-height: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #0f172a;
+}
+
+.popular-slider .popular-info span {
+  display: block;
+  margin-top: 3px;
+  color: #64748b;
+}
+
+/* Dark mode */
+.dark .popular-slider .popular-card {
+  background-color: #061426;
+  border-color: #112a46;
+}
+
+.dark .popular-slider .popular-card:hover {
+  box-shadow: 0 8px 20px rgb(0 0 0 / 30%);
+}
+
+.dark .popular-slider .popular-info p {
+  color: #f8fafc;
+}
+
+.dark .popular-slider .popular-info span {
+  color: #94a3b8;
+}
+
+/* Hide Swiper controls */
+.popular-slider .swiper-pagination,
+.popular-slider .swiper-scrollbar,
+.popular-slider .swiper-button-next,
+.popular-slider .swiper-button-prev {
+  display: none !important;
+}
